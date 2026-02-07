@@ -127,6 +127,15 @@ function populateEngines(engines, defaultEngine) {
   });
 }
 
+function clearDependentSelects() {
+  clearSelect(modelSelect);
+  addPlaceholder(modelSelect, "Select model", true, true);
+  clearSelect(engineSelect);
+  addPlaceholder(engineSelect, "Select engine (optional)", true, false);
+  clearSelect(yearSelect);
+  addPlaceholder(yearSelect, "Select year", true, true);
+}
+
 function getSelectedModel() {
   const make = makeSelect.value;
   const makeEntry = vehicleData.makes.find((entry) => entry.make === make);
@@ -147,59 +156,43 @@ async function loadDropdownData() {
   vehicleData = await vehiclesResponse.json();
   const symptomsData = await symptomsResponse.json();
 
-  const defaultMake = "Honda";
-  const defaultModel = "Civic";
-  const defaultEngine = "1.5L Turbo";
-  const defaultYear = 2016;
-
-  populateMakes(defaultMake);
-
-  const makeEntry = vehicleData.makes.find((entry) => entry.make === defaultMake) || vehicleData.makes[0];
-  const models = makeEntry.models;
-  populateModels(models, defaultModel);
-
-  const modelEntry = models.find((entry) => entry.model === defaultModel) || models[0];
-  const engines = modelEntry.engines || [];
-  populateEngines(engines, defaultEngine);
-
-  const yearRange = modelEntry.year_range || [1990, 2026];
-  populateYears(yearRange, resolveYearSelection(yearRange, defaultYear));
-
-  mileageSelect.value = "75000";
+  populateMakes(null);
+  clearDependentSelects();
 
   clearSelect(symptomsSelect);
   symptomsData.symptoms.forEach((symptom) => {
     addOption(symptomsSelect, symptom, symptom, false);
   });
 
-  // Preselect a few symptoms for the demo run.
-  ["rough idle", "check engine", "hesitation"].forEach((keyword) => {
-    const option = Array.from(symptomsSelect.options).find((opt) => opt.value === keyword);
-    if (option) option.selected = true;
-  });
+  setStatus("Select vehicle details to run a prediction.");
 }
 
 function refreshModels() {
+  if (!makeSelect.value) {
+    clearDependentSelects();
+    return;
+  }
   const makeEntry = vehicleData.makes.find((entry) => entry.make === makeSelect.value);
   const models = makeEntry ? makeEntry.models : [];
-  populateModels(models, models[0]?.model);
-
-  const modelEntry = models[0];
-  if (modelEntry) {
-    populateEngines(modelEntry.engines || [], modelEntry.engines?.[0]);
-    const range = modelEntry.year_range || [1990, 2026];
-    const selectedYear = resolveYearSelection(range, Number(yearSelect.value));
-    populateYears(range, selectedYear);
-  }
+  populateModels(models, null);
+  clearSelect(engineSelect);
+  addPlaceholder(engineSelect, "Select engine (optional)", true, false);
+  clearSelect(yearSelect);
+  addPlaceholder(yearSelect, "Select year", true, true);
 }
 
 function refreshEnginesAndYears() {
   const modelEntry = getSelectedModel();
-  if (!modelEntry) return;
-  populateEngines(modelEntry.engines || [], modelEntry.engines?.[0]);
+  if (!modelEntry) {
+    clearSelect(engineSelect);
+    addPlaceholder(engineSelect, "Select engine (optional)", true, false);
+    clearSelect(yearSelect);
+    addPlaceholder(yearSelect, "Select year", true, true);
+    return;
+  }
+  populateEngines(modelEntry.engines || [], null);
   const range = modelEntry.year_range || [1990, 2026];
-  const selectedYear = resolveYearSelection(range, Number(yearSelect.value));
-  populateYears(range, selectedYear);
+  populateYears(range, null);
 }
 
 async function runPrediction(payload) {
@@ -267,16 +260,7 @@ resetBtn.addEventListener("click", () => {
 });
 
 loadDropdownData()
-  .then(() => {
-    runPrediction({
-      year: Number(yearSelect.value),
-      make: String(makeSelect.value),
-      model: String(modelSelect.value),
-      engine: String(engineSelect.value || ""),
-      mileage: Number(mileageSelect.value),
-      symptoms: getSelectedSymptoms().join(", "),
-    });
-  })
+  .then(() => {})
   .catch((error) => {
     console.error(error);
     setStatus("Failed to load dropdown data.");
