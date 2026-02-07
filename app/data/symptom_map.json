@@ -1,0 +1,35 @@
+[
+  {"keyword": "won't start", "weights": {"battery": 0.22, "starter": 0.18, "alternator": 0.08}},
+  {"keyword": "no start", "weights": {"battery": 0.18, "starter": 0.16, "fuel_pump": 0.12}},
+  {"keyword": "clicking", "weights": {"battery": 0.12, "starter": 0.18}},
+  {"keyword": "slow crank", "weights": {"battery": 0.18, "starter": 0.14}},
+  {"keyword": "dead battery", "weights": {"battery": 0.25, "alternator": 0.12}},
+  {"keyword": "dim lights", "weights": {"alternator": 0.15, "battery": 0.12}},
+
+  {"keyword": "misfire", "weights": {"ignition_coil": 0.22, "spark_plugs": 0.2, "fuel_injector": 0.08}},
+  {"keyword": "rough idle", "weights": {"ignition_coil": 0.2, "spark_plugs": 0.16, "maf_sensor": 0.12}},
+  {"keyword": "stall", "weights": {"fuel_pump": 0.18, "maf_sensor": 0.14, "fuel_injector": 0.1}},
+  {"keyword": "hesitation", "weights": {"fuel_injector": 0.16, "fuel_pump": 0.14, "maf_sensor": 0.1}},
+  {"keyword": "poor mpg", "weights": {"oxygen_sensor": 0.16, "spark_plugs": 0.12, "maf_sensor": 0.1}},
+  {"keyword": "check engine", "weights": {"oxygen_sensor": 0.16, "maf_sensor": 0.12, "catalytic_converter": 0.1}},
+
+  {"keyword": "overheat", "weights": {"cooling_system": 0.26, "belts_hoses": 0.12}},
+  {"keyword": "coolant leak", "weights": {"cooling_system": 0.24, "belts_hoses": 0.1}},
+  {"keyword": "squeal", "weights": {"belts_hoses": 0.18, "brake_pads": 0.12}},
+  {"keyword": "grinding brakes", "weights": {"brake_pads": 0.24}},
+
+  {"keyword": "vibration", "weights": {"wheel_bearing": 0.18, "suspension": 0.14, "control_arms": 0.12}},
+  {"keyword": "clunk", "weights": {"suspension": 0.16, "control_arms": 0.18}},
+  {"keyword": "pulling", "weights": {"brake_pads": 0.12, "control_arms": 0.1}},
+
+  {"keyword": "shift", "weights": {"transmission": 0.2}},
+  {"keyword": "slip", "weights": {"transmission": 0.22}},
+  {"keyword": "gear", "weights": {"transmission": 0.16}},
+
+  {"keyword": "ac not cold", "weights": {"ac_compressor": 0.22}},
+  {"keyword": "ac warm", "weights": {"ac_compressor": 0.18}},
+  {"keyword": "whining steering", "weights": {"power_steering": 0.22}},
+
+  {"keyword": "boost", "weights": {"turbocharger": 0.2}},
+  {"keyword": "turbo", "weights": {"turbocharger": 0.22}}
+]

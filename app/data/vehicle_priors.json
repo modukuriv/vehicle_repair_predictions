@@ -1,0 +1,15 @@
+{
+  "make_adjustments": {
+    "ford": {"transmission": 0.03, "brake_pads": 0.02},
+    "chevrolet": {"suspension": 0.03, "brake_pads": 0.02},
+    "honda": {"ac_compressor": 0.02, "ignition_coil": 0.02},
+    "toyota": {"oxygen_sensor": 0.02},
+    "bmw": {"cooling_system": 0.03, "power_steering": 0.02},
+    "audi": {"turbocharger": 0.03, "cooling_system": 0.02}
+  },
+  "model_adjustments": {
+    "f-150": {"transmission": 0.04, "brake_pads": 0.03},
+    "civic": {"ignition_coil": 0.03, "ac_compressor": 0.02},
+    "camry": {"oxygen_sensor": 0.02}
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "makes": [
+    {
+      "make": "Honda",
+      "models": [
+        {"model": "Civic", "engines": ["2.0L I4", "1.5L Turbo"], "year_range": [2006, 2024]},
+        {"model": "Accord", "engines": ["2.4L I4", "2.0L Turbo", "3.5L V6"], "year_range": [2008, 2024]},
+        {"model": "CR-V", "engines": ["2.4L I4", "1.5L Turbo"], "year_range": [2007, 2024]}
+      ]
+    },
+    {
+      "make": "Toyota",
+      "models": [
+        {"model": "Camry", "engines": ["2.5L I4", "3.5L V6", "2.5L Hybrid"], "year_range": [2007, 2024]},
+        {"model": "Corolla", "engines": ["1.8L I4", "2.0L I4", "1.8L Hybrid"], "year_range": [2009, 2024]},
+        {"model": "RAV4", "engines": ["2.5L I4", "2.5L Hybrid"], "year_range": [2008, 2024]}
+      ]
+    },
+    {
+      "make": "Ford",
+      "models": [
+        {"model": "F-150", "engines": ["3.3L V6", "2.7L EcoBoost", "3.5L EcoBoost", "5.0L V8"], "year_range": [2011, 2024]},
+        {"model": "Escape", "engines": ["1.5L EcoBoost", "2.0L EcoBoost", "2.5L Hybrid"], "year_range": [2013, 2024]},
+        {"model": "Focus", "engines": ["2.0L I4", "1.0L EcoBoost"], "year_range": [2012, 2018]}
+      ]
+    },
+    {
+      "make": "Chevrolet",
+      "models": [
+        {"model": "Silverado", "engines": ["2.7L Turbo", "5.3L V8", "6.2L V8"], "year_range": [2014, 2024]},
+        {"model": "Malibu", "engines": ["1.5L Turbo", "2.0L Turbo"], "year_range": [2016, 2024]},
+        {"model": "Equinox", "engines": ["1.5L Turbo", "2.0L Turbo"], "year_range": [2018, 2024]}
+      ]
+    },
+    {
+      "make": "BMW",
+      "models": [
+        {"model": "3 Series", "engines": ["2.0L Turbo", "3.0L Turbo"], "year_range": [2012, 2024]},
+        {"model": "5 Series", "engines": ["2.0L Turbo", "3.0L Turbo", "4.4L Turbo V8"], "year_range": [2011, 2024]},
+        {"model": "X5", "engines": ["3.0L Turbo", "4.4L Turbo V8", "3.0L Diesel"], "year_range": [2013, 2024]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Repair Probability MVP</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Predictive Aftermarket MVP</p>
+        <h1>Vehicle-Specific Repair Probability & Parts Recommendations</h1>
+        <p class="subhead">
+          Enter your vehicle details and mileage. Optionally add symptoms. This MVP ranks the top 5 parts
+          most likely to fail next and suggests replacements.
+        </p>
+      </header>
+
+      <section class="card form-card">
+        <form id="predict-form">
+          <div class="grid">
+            <label>
+              <span>Year</span>
+              <select name="year" id="year" required></select>
+            </label>
+            <label>
+              <span>Make</span>
+              <select name="make" id="make" required></select>
+            </label>
+            <label>
+              <span>Model</span>
+              <select name="model" id="model" required></select>
+            </label>
+            <label>
+              <span>Engine</span>
+              <select name="engine" id="engine"></select>
+            </label>
+            <label>
+              <span>Mileage</span>
+              <select name="mileage" id="mileage" required>
+                <option value="25000">0 - 50k</option>
+                <option value="75000" selected>50k - 100k</option>
+                <option value="125000">100k - 150k</option>
+                <option value="175000">150k+</option>
+              </select>
+            </label>
+            <label class="symptoms">
+              <span>Symptoms (optional)</span>
+              <select name="symptoms" id="symptoms" multiple></select>
+              <small>Tip: Hold command/ctrl to select multiple symptoms.</small>
+            </label>
+          </div>
+          <div class="actions">
+            <button type="submit">Run Prediction</button>
+            <span id="status" class="status"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="card results-card" id="results">
+        <div class="results-header">
+          <h2>Top 5 Likely Failures</h2>
+          <p>Probabilities are heuristic for MVP demo only.</p>
+        </div>
+        <div id="results-list" class="results-list"></div>
+      </section>
+
+      <footer class="footer">
+        <p>
+          This MVP uses heuristic scoring with mileage bands, symptom keywords, and demo vehicle priors.
+          Replace the data files with real models and datasets for production.
+        </p>
+      </footer>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
