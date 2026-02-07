@@ -10,6 +10,7 @@ const symptomsSelect = document.getElementById("symptoms");
 const resetBtn = document.getElementById("reset-btn");
 
 let vehicleData = null;
+let availableYears = [];
 
 function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
@@ -86,27 +87,19 @@ function addPlaceholder(selectEl, label, selected = false, disabled = true) {
   selectEl.appendChild(option);
 }
 
-function populateYears(range, selectedYear) {
+function populateYears(years, selectedYear) {
   clearSelect(yearSelect);
   addPlaceholder(yearSelect, "Select year", !selectedYear, true);
-  const [minYear, maxYear] = range;
-  for (let year = maxYear; year >= minYear; year -= 1) {
+  years.forEach((year) => {
     addOption(yearSelect, String(year), String(year), year === selectedYear);
-  }
+  });
 }
 
-function resolveYearSelection(range, currentYear) {
-  const [minYear, maxYear] = range;
-  if (currentYear >= minYear && currentYear <= maxYear) {
-    return currentYear;
-  }
-  return maxYear;
-}
-
-function populateMakes(defaultMake) {
+function populateMakes(makeEntries, defaultMake) {
   clearSelect(makeSelect);
   addPlaceholder(makeSelect, "Select make", !defaultMake, true);
-  vehicleData.makes.forEach((make) => {
+  const entries = makeEntries || [];
+  entries.forEach((make) => {
     addOption(makeSelect, make.make, make.make, make.make === defaultMake);
   });
 }
@@ -132,8 +125,31 @@ function clearDependentSelects() {
   addPlaceholder(modelSelect, "Select model", true, true);
   clearSelect(engineSelect);
   addPlaceholder(engineSelect, "Select engine (optional)", true, false);
-  clearSelect(yearSelect);
-  addPlaceholder(yearSelect, "Select year", true, true);
+}
+
+function clearMakeModelEngine() {
+  clearSelect(makeSelect);
+  addPlaceholder(makeSelect, "Select make", true, true);
+  clearDependentSelects();
+}
+
+function yearInRange(year, range) {
+  if (!range || range.length < 2) return false;
+  return year >= range[0] && year <= range[1];
+}
+
+function computeAvailableYears() {
+  const years = new Set();
+  vehicleData.makes.forEach((makeEntry) => {
+    makeEntry.models.forEach((modelEntry) => {
+      const range = modelEntry.year_range || [];
+      if (range.length < 2) return;
+      for (let year = range[0]; year <= range[1]; year += 1) {
+        years.add(year);
+      }
+    });
+  });
+  return Array.from(years).sort((a, b) => b - a);
 }
 
 function getSelectedModel() {
@@ -156,8 +172,10 @@ async function loadDropdownData() {
   vehicleData = await vehiclesResponse.json();
   const symptomsData = await symptomsResponse.json();
 
-  populateMakes(null);
-  clearDependentSelects();
+  availableYears = computeAvailableYears();
+  populateYears(availableYears, null);
+  clearMakeModelEngine();
+  mileageSelect.selectedIndex = 0;
 
   clearSelect(symptomsSelect);
   symptomsData.symptoms.forEach((symptom) => {
@@ -167,32 +185,42 @@ async function loadDropdownData() {
   setStatus("Select vehicle details to run a prediction.");
 }
 
-function refreshModels() {
-  if (!makeSelect.value) {
+function refreshMakesForYear() {
+  if (!yearSelect.value) {
+    clearMakeModelEngine();
+    return;
+  }
+  const year = Number(yearSelect.value);
+  const makesForYear = vehicleData.makes.filter((makeEntry) =>
+    makeEntry.models.some((modelEntry) => yearInRange(year, modelEntry.year_range))
+  );
+  populateMakes(makesForYear, null);
+  clearDependentSelects();
+}
+
+function refreshModelsForMakeYear() {
+  const year = Number(yearSelect.value);
+  if (!year || !makeSelect.value) {
     clearDependentSelects();
     return;
   }
   const makeEntry = vehicleData.makes.find((entry) => entry.make === makeSelect.value);
-  const models = makeEntry ? makeEntry.models : [];
+  const models = makeEntry
+    ? makeEntry.models.filter((modelEntry) => yearInRange(year, modelEntry.year_range))
+    : [];
   populateModels(models, null);
   clearSelect(engineSelect);
   addPlaceholder(engineSelect, "Select engine (optional)", true, false);
-  clearSelect(yearSelect);
-  addPlaceholder(yearSelect, "Select year", true, true);
 }
 
-function refreshEnginesAndYears() {
+function refreshEnginesForModel() {
   const modelEntry = getSelectedModel();
   if (!modelEntry) {
     clearSelect(engineSelect);
     addPlaceholder(engineSelect, "Select engine (optional)", true, false);
-    clearSelect(yearSelect);
-    addPlaceholder(yearSelect, "Select year", true, true);
     return;
   }
   populateEngines(modelEntry.engines || [], null);
-  const range = modelEntry.year_range || [1990, 2026];
-  populateYears(range, null);
 }
 
 async function runPrediction(payload) {
@@ -238,19 +266,21 @@ form.addEventListener("submit", (event) => {
   runPrediction(payload);
 });
 
+yearSelect.addEventListener("change", () => {
+  refreshMakesForYear();
+});
+
 makeSelect.addEventListener("change", () => {
-  refreshModels();
+  refreshModelsForMakeYear();
 });
 
 modelSelect.addEventListener("change", () => {
-  refreshEnginesAndYears();
+  refreshEnginesForModel();
 });
 
 resetBtn.addEventListener("click", () => {
-  yearSelect.selectedIndex = 0;
-  makeSelect.selectedIndex = 0;
-  modelSelect.selectedIndex = 0;
-  engineSelect.selectedIndex = 0;
+  populateYears(availableYears, null);
+  clearMakeModelEngine();
   mileageSelect.selectedIndex = 0;
   Array.from(symptomsSelect.options).forEach((option) => {
     option.selected = false;
