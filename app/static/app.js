@@ -1,6 +1,7 @@
 const form = document.getElementById("predict-form");
 const resultsList = document.getElementById("results-list");
 const statusEl = document.getElementById("status");
+const explanationEl = document.getElementById("explanation");
 const yearSelect = document.getElementById("year");
 const makeSelect = document.getElementById("make");
 const modelSelect = document.getElementById("model");
@@ -226,6 +227,7 @@ function refreshEnginesForModel() {
 async function runPrediction(payload) {
   setStatus("Running prediction...");
   resultsList.innerHTML = "";
+  explanationEl.textContent = "";
 
   try {
     const response = await fetch("/api/predict", {
@@ -239,6 +241,9 @@ async function runPrediction(payload) {
     }
 
     const data = await response.json();
+    if (data.explanation) {
+      explanationEl.textContent = data.explanation;
+    }
     data.results.forEach((result) => {
       resultsList.appendChild(createResultCard(result));
     });
@@ -286,6 +291,7 @@ resetBtn.addEventListener("click", () => {
     option.selected = false;
   });
   resultsList.innerHTML = "";
+  explanationEl.textContent = "";
   setStatus("Form cleared.");
 });
 

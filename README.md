@@ -56,6 +56,29 @@ Outputs:
 
 Note: The NHTSA complaints download is large. Expect a long first run.
 
+## ML Model (Public Priors)
+Train a lightweight ML model on the public priors:
+
+```bash
+python3 scripts/train_ml_model.py
+```
+
+This writes:
+- `app/data/model.joblib`
+- `app/data/model_meta.json`
+
+If these files exist, the API will use the ML model for base probabilities.
+
+## LLM Explanations (Optional)
+By default, explanations are templated. To enable LLM explanations with a local Ollama model:
+
+```bash
+export LLM_PROVIDER=ollama
+export LLM_MODEL=llama3.1
+```
+
+Make sure Ollama is running locally and has the model installed.
+
 ## Next Steps
 - Connect NHTSA complaints and recalls to populate real failure frequencies
 - Add OBD-II code mappings to strengthen symptom-to-part ranking

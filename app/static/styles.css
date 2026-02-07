@@ -167,6 +167,13 @@ button.secondary:hover {
   font-size: 13px;
 }
 
+.explanation {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 .results-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

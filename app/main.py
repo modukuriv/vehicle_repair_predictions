@@ -4,6 +4,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
+import os
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
@@ -40,6 +41,23 @@ MODEL_ADJUSTMENTS = LEGACY_PRIORS.get("model_adjustments", {})
 USE_PUBLIC_PRIORS = bool(
     PUBLIC_PRIORS.get("global") or PUBLIC_PRIORS.get("vehicle_year") or PUBLIC_PRIORS.get("vehicle_model")
 )
+
+MODEL_PATH = DATA_DIR / "model.joblib"
+MODEL_META_PATH = DATA_DIR / "model_meta.json"
+
+MODEL = None
+MODEL_META = {}
+MODEL_LOAD_ERROR = None
+try:
+    import joblib
+    import pandas as pd
+
+    if MODEL_PATH.exists():
+        MODEL = joblib.load(MODEL_PATH)
+        if MODEL_META_PATH.exists():
+            MODEL_META = _load_json(MODEL_META_PATH)
+except Exception as exc:  # pragma: no cover - optional dependency
+    MODEL_LOAD_ERROR = str(exc)
 
 
 class PredictRequest(BaseModel):
@@ -99,6 +117,76 @@ def _normalize(text: str) -> str:
     return " ".join("".join(ch if ch.isalnum() or ch.isspace() else " " for ch in text.lower()).split())
 
 
+def _ml_probabilities(payload: PredictRequest):
+    if not MODEL:
+        return None
+    try:
+        features = {
+            "year": payload.year,
+            "make": payload.make.strip().lower(),
+            "model": payload.model.strip().lower(),
+            "mileage_band": _mileage_band(payload.mileage),
+        }
+        df = pd.DataFrame([features])
+        probs = MODEL.predict_proba(df)[0]
+        classes = MODEL.classes_
+        return {cls: float(prob) for cls, prob in zip(classes, probs)}
+    except Exception:
+        return None
+
+
+def _template_explanation(payload: PredictRequest, results: List[Dict]) -> str:
+    parts = ", ".join([item["part_name"] for item in results[:3]])
+    symptom_text = (payload.symptoms or "").strip()
+    if symptom_text:
+        return (
+            f"Based on your {payload.year} {payload.make} {payload.model} at {payload.mileage:,} miles, "
+            f"the most likely next issues are {parts}. Your symptoms ({symptom_text}) align with these categories."
+        )
+    return (
+        f"Based on your {payload.year} {payload.make} {payload.model} at {payload.mileage:,} miles, "
+        f"the most likely next issues are {parts}. "
+        "These are common wear items in this mileage band."
+    )
+
+
+def _ollama_explanation(payload: PredictRequest, results: List[Dict]) -> str | None:
+    import json as _json
+    import urllib.request
+
+    model_name = os.getenv("LLM_MODEL", "llama3.1")
+    prompt = (
+        "You are an auto repair assistant. Summarize why the following parts are likely next failures "
+        "based on the vehicle and symptoms. Keep it to 3-4 sentences.\n\n"
+        f"Vehicle: {payload.year} {payload.make} {payload.model} ({payload.engine}), "
+        f"Mileage: {payload.mileage}\n"
+        f"Symptoms: {payload.symptoms or 'none'}\n"
+        f"Top parts: {[item['part_name'] for item in results]}\n"
+    )
+
+    body = _json.dumps({"model": model_name, "prompt": prompt, "stream": False}).encode("utf-8")
+    req = urllib.request.Request(
+        "http://localhost:11434/api/generate",
+        data=body,
+        headers={"Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        data = _json.loads(resp.read().decode("utf-8"))
+    return data.get("response")
+
+
+def _generate_explanation(payload: PredictRequest, results: List[Dict]) -> str:
+    provider = (os.getenv("LLM_PROVIDER") or "").lower().strip()
+    if provider == "ollama":
+        try:
+            response = _ollama_explanation(payload, results)
+            if response:
+                return response.strip()
+        except Exception:
+            pass
+    return _template_explanation(payload, results)
+
+
 def _public_prior_weight(part_id: str, mileage_band: str, year: int, make_key: str, model_key: str) -> float:
     if not USE_PUBLIC_PRIORS:
         return 0.0
@@ -129,6 +217,7 @@ def predict(payload: PredictRequest):
 
     make_weights = MAKE_ADJUSTMENTS.get(make_key, {})
     model_weights = MODEL_ADJUSTMENTS.get(model_key, {})
+    ml_probs = _ml_probabilities(payload)
 
     part_scores: Dict[str, float] = {}
     part_signals: Dict[str, List[str]] = {}
@@ -137,7 +226,10 @@ def predict(payload: PredictRequest):
         part_id = part["id"]
         base = float(part["base_rate"])
         mileage_factor = float(part["mileage_factors"].get(mileage_band, 1.0))
-        score = base * mileage_factor
+        if ml_probs:
+            score = float(ml_probs.get(part_id, 0.0))
+        else:
+            score = base * mileage_factor
 
         # Demo engine-based adjustments
         if part_id == "turbocharger":
@@ -147,13 +239,15 @@ def predict(payload: PredictRequest):
         if engine_flags["hybrid"] and part_id in {"starter", "alternator"}:
             score *= 0.7
 
-        public_weight = _public_prior_weight(part_id, mileage_band, payload.year, make_key, model_key)
-        if USE_PUBLIC_PRIORS:
-            score += public_weight
-        else:
-            # Demo vehicle priors (small offsets for MVP UI)
-            score += float(make_weights.get(part_id, 0.0))
-            score += float(model_weights.get(part_id, 0.0))
+        public_weight = 0.0
+        if not ml_probs:
+            public_weight = _public_prior_weight(part_id, mileage_band, payload.year, make_key, model_key)
+            if USE_PUBLIC_PRIORS:
+                score += public_weight
+            else:
+                # Demo vehicle priors (small offsets for MVP UI)
+                score += float(make_weights.get(part_id, 0.0))
+                score += float(model_weights.get(part_id, 0.0))
 
         matched_keywords: List[str] = []
         if symptom_text:
@@ -178,7 +272,9 @@ def predict(payload: PredictRequest):
             "150_plus": "150k+",
         }.get(mileage_band, mileage_band)
         signals.append(f"Mileage band: {band_label}")
-        if USE_PUBLIC_PRIORS and public_weight > 0:
+        if ml_probs:
+            signals.append("ML model scored")
+        elif USE_PUBLIC_PRIORS and public_weight > 0:
             signals.append("Public-data prior applied")
         elif make_weights or model_weights:
             signals.append("Vehicle prior applied (demo)")
@@ -209,12 +305,19 @@ def predict(payload: PredictRequest):
             }
         )
 
+    explanation = _generate_explanation(payload, results)
+
     return {
         "inputs": payload.model_dump(),
         "results": results,
+        "explanation": explanation,
         "meta": {
-            "model_version": "mvp-heuristic-0.1",
+            "model_version": "ml-public-0.2" if ml_probs else "mvp-heuristic-0.1",
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "notes": "Probabilities are heuristic for MVP demo only.",
+            "ml_enabled": bool(ml_probs),
+            "llm_provider": os.getenv("LLM_PROVIDER") or "template",
+            "model_meta": MODEL_META,
+            "model_load_error": MODEL_LOAD_ERROR,
         },
     }
