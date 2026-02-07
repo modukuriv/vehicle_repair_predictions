@@ -1,0 +1,786 @@
+{
+  "codes": {
+    "P0115": {
+      "description": "Engine Coolant Temperature Circuit Malfunction",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0116": {
+      "description": "Engine Coolant Temperature Circuit Range/Performance Problem",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0117": {
+      "description": "Engine Coolant Temperature Circuit Low Input",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0118": {
+      "description": "Engine Coolant Temperature Circuit High Input",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0119": {
+      "description": "Engine Coolant Temperature Circuit Intermittent",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0125": {
+      "description": "Insufficient Coolant Temperature for Closed Loop Fuel Control",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0126": {
+      "description": "Insufficient Coolant Temperature for Stable Operation",
+      "parts": [
+        "cooling_system"
+      ]
+    },
+    "P0200": {
+      "description": "Injector Circuit Malfunction",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0201": {
+      "description": "Injector Circuit Malfunction - Cylinder 1",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0202": {
+      "description": "Injector Circuit Malfunction - Cylinder 2",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0203": {
+      "description": "Injector Circuit Malfunction - Cylinder 3",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0204": {
+      "description": "Injector Circuit Malfunction - Cylinder 4",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0205": {
+      "description": "Injector Circuit Malfunction - Cylinder 5",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0206": {
+      "description": "Injector Circuit Malfunction - Cylinder 6",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0207": {
+      "description": "Injector Circuit Malfunction - Cylinder 7",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0208": {
+      "description": "Injector Circuit Malfunction - Cylinder 8",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0209": {
+      "description": "Injector Circuit Malfunction - Cylinder 9",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0210": {
+      "description": "Injector Circuit Malfunction - Cylinder 10",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0211": {
+      "description": "Injector Circuit Malfunction - Cylinder 11",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0212": {
+      "description": "Injector Circuit Malfunction - Cylinder 12",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0213": {
+      "description": "Cold Start Injector 1 Malfunction",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0214": {
+      "description": "Cold Start Injector 2 Malfunction",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0218": {
+      "description": "Transmission Over Temperature Condition",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0230": {
+      "description": "Fuel Pump Primary Circuit Malfunction",
+      "parts": [
+        "fuel_pump"
+      ]
+    },
+    "P0231": {
+      "description": "Fuel Pump Secondary Circuit Low",
+      "parts": [
+        "fuel_pump"
+      ]
+    },
+    "P0232": {
+      "description": "Fuel Pump Secondary Circuit High",
+      "parts": [
+        "fuel_pump"
+      ]
+    },
+    "P0233": {
+      "description": "Fuel Pump Secondary Circuit Intermittent",
+      "parts": [
+        "fuel_pump"
+      ]
+    },
+    "P0235": {
+      "description": "Turbocharger Boost Sensor A Circuit Malfunction",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0236": {
+      "description": "Turbocharger Boost Sensor A Circuit Range/Performance",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0237": {
+      "description": "Turbocharger Boost Sensor A Circuit Low",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0238": {
+      "description": "Turbocharger Boost Sensor A Circuit High",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0239": {
+      "description": "Turbocharger Boost Sensor B Malfunction",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0240": {
+      "description": "Turbocharger Boost Sensor B Circuit Range/Performance",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0241": {
+      "description": "Turbocharger Boost Sensor B Circuit Low",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0242": {
+      "description": "Turbocharger Boost Sensor B Circuit High",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0243": {
+      "description": "Turbocharger Wastegate Solenoid A Malfunction",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0244": {
+      "description": "Turbocharger Wastegate Solenoid A Range/Performance",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0245": {
+      "description": "Turbocharger Wastegate Solenoid A Low",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0246": {
+      "description": "Turbocharger Wastegate Solenoid A High",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0247": {
+      "description": "Turbocharger Wastegate Solenoid B Malfunction",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0248": {
+      "description": "Turbocharger Wastegate Solenoid B Range/Performance",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0249": {
+      "description": "Turbocharger Wastegate Solenoid B Low",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0250": {
+      "description": "Turbocharger Wastegate Solenoid B High",
+      "parts": [
+        "turbocharger"
+      ]
+    },
+    "P0251": {
+      "description": "Injection Pump Fuel Metering Control \"A\" Malfunction (Cam/Rotor/Injector)",
+      "parts": [
+        "brake_pads",
+        "fuel_injector"
+      ]
+    },
+    "P0252": {
+      "description": "Injection Pump Fuel Metering Control \"A\" Range/Performance (Cam/Rotor/Injector)",
+      "parts": [
+        "brake_pads",
+        "fuel_injector"
+      ]
+    },
+    "P0253": {
+      "description": "Injection Pump Fuel Metering Control \"A\" Low (Cam/Rotor/Injector)",
+      "parts": [
+        "brake_pads",
+        "fuel_injector"
+      ]
+    },
+    "P0254": {
+      "description": "Injection Pump Fuel Metering Control \"A\" High (Cam/Rotor/Injector)",
+      "parts": [
+        "brake_pads",
+        "fuel_injector"
+      ]
+    },
+    "P0255": {
+      "description": "Injection Pump Fuel Metering Control \"A\" Intermittent (Cam/Rotor/Injector)",
+      "parts": [
+        "brake_pads",
+        "fuel_injector"
+      ]
+    },
+    "P0256": {
+      "description": "Injection Pump Fuel Metering Control \"B\" Malfunction (Cam/Rotor/Injector)",
+      "parts": [
+        "brake_pads",
+        "fuel_injector"
+      ]
+    },
+    "P0257": {
+      "description": "Injection Pump Fuel Metering Control \"B\" Range/Performance Injector)",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0260": {
+      "description": "Injection Pump Fuel Metering Control \"B\" Intermittent Injector)",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0261": {
+      "description": "Cylinder I Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0262": {
+      "description": "Cylinder I Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0264": {
+      "description": "Cylinder 2 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0265": {
+      "description": "Cylinder 2 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0267": {
+      "description": "Cylinder 3 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0268": {
+      "description": "Cylinder 3 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0270": {
+      "description": "Cylinder 4 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0271": {
+      "description": "Cylinder 4 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0273": {
+      "description": "Cylinder 5 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0274": {
+      "description": "Cylinder 5 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0276": {
+      "description": "Cylinder 6 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0277": {
+      "description": "Cylinder 6 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0279": {
+      "description": "Cylinder 7 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0280": {
+      "description": "Cylinder 7 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0282": {
+      "description": "Cylinder 8 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0283": {
+      "description": "Cylinder 8 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0285": {
+      "description": "Cylinder 9 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0286": {
+      "description": "Cylinder 9 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0288": {
+      "description": "Cylinder 10 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0289": {
+      "description": "Cylinder 10 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0291": {
+      "description": "Cylinder 11 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0292": {
+      "description": "Cylinder 11 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0294": {
+      "description": "Cylinder 12 Injector Circuit Low",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0295": {
+      "description": "Cylinder 12 Injector Circuit High",
+      "parts": [
+        "fuel_injector"
+      ]
+    },
+    "P0300": {
+      "description": "Random/Multiple Cylinder Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0301": {
+      "description": "Cylinder 1 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0302": {
+      "description": "Cylinder 2 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0303": {
+      "description": "Cylinder 3 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0304": {
+      "description": "Cylinder 4 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0305": {
+      "description": "Cylinder 5 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0306": {
+      "description": "Cylinder 6 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0307": {
+      "description": "Cylinder 7 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0308": {
+      "description": "Cylinder 8 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0309": {
+      "description": "Cylinder 9 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0311": {
+      "description": "Cylinder 11 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0312": {
+      "description": "Cylinder 12 Misfire Detected",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0350": {
+      "description": "Ignition Coil Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0351": {
+      "description": "Ignition Coil A Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0352": {
+      "description": "Ignition Coil B Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0353": {
+      "description": "Ignition Coil C Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0354": {
+      "description": "Ignition Coil D Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0355": {
+      "description": "Ignition Coil E Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0356": {
+      "description": "Ignition Coil F Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0357": {
+      "description": "Ignition Coil G Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0358": {
+      "description": "Ignition Coil H Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0359": {
+      "description": "Ignition Coil I Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0360": {
+      "description": "Ignition Coil J Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0361": {
+      "description": "Ignition Coil K Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0362": {
+      "description": "Ignition Coil L Primary/Secondary Circuit Malfunction",
+      "parts": [
+        "ignition_coil"
+      ]
+    },
+    "P0530": {
+      "description": "A/C Refrigerant Pressure Sensor Circuit Malfunction",
+      "parts": [
+        "ac_compressor"
+      ]
+    },
+    "P0531": {
+      "description": "A/C Refrigerant Pressure Sensor Circuit Range/Performance",
+      "parts": [
+        "ac_compressor"
+      ]
+    },
+    "P0532": {
+      "description": "A/C Refrigerant Pressure Sensor Circuit Low Input",
+      "parts": [
+        "ac_compressor"
+      ]
+    },
+    "P0533": {
+      "description": "A/C Refrigerant Pressure Sensor Circuit High Input",
+      "parts": [
+        "ac_compressor"
+      ]
+    },
+    "P0534": {
+      "description": "Air Conditioner Refrigerant Charge Loss",
+      "parts": [
+        "ac_compressor"
+      ]
+    },
+    "P0550": {
+      "description": "Power Steering Pressure Sensor Circuit Malfunction",
+      "parts": [
+        "power_steering"
+      ]
+    },
+    "P0551": {
+      "description": "Power Steering Pressure Sensor Circuit Range/Performance",
+      "parts": [
+        "power_steering"
+      ]
+    },
+    "P0552": {
+      "description": "Power Steering Pressure Sensor Circuit Low Input",
+      "parts": [
+        "power_steering"
+      ]
+    },
+    "P0553": {
+      "description": "Power Steering Pressure Sensor Circuit High Input",
+      "parts": [
+        "power_steering"
+      ]
+    },
+    "P0554": {
+      "description": "Power Steering Pressure Sensor Circuit Intermittent",
+      "parts": [
+        "power_steering"
+      ]
+    },
+    "P0571": {
+      "description": "Cruise Control/Brake Switch A Circuit Malfunction",
+      "parts": [
+        "brake_pads"
+      ]
+    },
+    "P0572": {
+      "description": "Cruise Control/Brake Switch A Circuit Low",
+      "parts": [
+        "brake_pads"
+      ]
+    },
+    "P0573": {
+      "description": "Cruise Control/Brake Switch A Circuit High",
+      "parts": [
+        "brake_pads"
+      ]
+    },
+    "P0700": {
+      "description": "Transmission Control System Malfunction",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0701": {
+      "description": "Transmission Control System Range/Performance",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0702": {
+      "description": "Transmission Control System Electrical",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0703": {
+      "description": "Torque Converter/Brake Switch B Circuit Malfunction",
+      "parts": [
+        "brake_pads"
+      ]
+    },
+    "P0705": {
+      "description": "Transmission Range Sensor Circuit malfunction (PRNDL Input)",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0706": {
+      "description": "Transmission Range Sensor Circuit Range/Performance",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0707": {
+      "description": "Transmission Range Sensor Circuit Low Input",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0708": {
+      "description": "Transmission Range Sensor Circuit High Input",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0709": {
+      "description": "Transmission Range Sensor Circuit Intermittent",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0710": {
+      "description": "Transmission Fluid Temperature Sensor Circuit Malfunction",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0711": {
+      "description": "Transmission Fluid Temperature Sensor Circuit Range/Performance",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0712": {
+      "description": "Transmission Fluid Temperature Sensor Circuit Low Input",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0713": {
+      "description": "Transmission Fluid Temperature Sensor Circuit High Input",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0714": {
+      "description": "Transmission Fluid Temperature Sensor Circuit Intermittent",
+      "parts": [
+        "transmission"
+      ]
+    },
+    "P0719": {
+      "description": "Torque Converter/Brake Switch B Circuit Low",
+      "parts": [
+        "brake_pads"
+      ]
+    },
+    "P0724": {
+      "description": "Torque Converter/Brake Switch B Circuit High",
+      "parts": [
+        "brake_pads"
+      ]
+    }
+  },
+  "generated_at": "2026-02-07T06:08:06.243247+00:00",
+  "source": "https://raw.githubusercontent.com/todrobbins/dtcdb/master/generic.csv"
+}

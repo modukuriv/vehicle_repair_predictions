@@ -20,15 +20,26 @@ def _load_json(path: Path):
         return json.load(handle)
 
 
+def _load_optional_json(path: Path, default):
+    if path.exists():
+        return _load_json(path)
+    return default
+
+
 PARTS_DATA = _load_json(DATA_DIR / "parts.json")
 SYMPTOM_RULES = _load_json(DATA_DIR / "symptom_map.json")
-PRIORS = _load_json(DATA_DIR / "vehicle_priors.json")
-VEHICLES_DATA = _load_json(DATA_DIR / "vehicles.json")
+LEGACY_PRIORS = _load_optional_json(DATA_DIR / "vehicle_priors.json", {})
+PUBLIC_PRIORS = _load_optional_json(DATA_DIR / "priors.json", {})
+VEHICLES_DATA = _load_optional_json(DATA_DIR / "vehicles.json", {"makes": []})
 
 PARTS = PARTS_DATA["parts"]
 DIFFICULTY_LABELS = PARTS_DATA["difficulty_labels"]
-MAKE_ADJUSTMENTS = PRIORS.get("make_adjustments", {})
-MODEL_ADJUSTMENTS = PRIORS.get("model_adjustments", {})
+MAKE_ADJUSTMENTS = LEGACY_PRIORS.get("make_adjustments", {})
+MODEL_ADJUSTMENTS = LEGACY_PRIORS.get("model_adjustments", {})
+
+USE_PUBLIC_PRIORS = bool(
+    PUBLIC_PRIORS.get("global") or PUBLIC_PRIORS.get("vehicle_year") or PUBLIC_PRIORS.get("vehicle_model")
+)
 
 
 class PredictRequest(BaseModel):
@@ -88,6 +99,25 @@ def _normalize(text: str) -> str:
     return " ".join("".join(ch if ch.isalnum() or ch.isspace() else " " for ch in text.lower()).split())
 
 
+def _public_prior_weight(part_id: str, mileage_band: str, year: int, make_key: str, model_key: str) -> float:
+    if not USE_PUBLIC_PRIORS:
+        return 0.0
+    weight = 0.0
+    global_band = PUBLIC_PRIORS.get("global", {}).get(mileage_band, {})
+    weight += float(global_band.get(part_id, 0.0))
+
+    key_year = f"{year}|{make_key}|{model_key}"
+    year_band = PUBLIC_PRIORS.get("vehicle_year", {}).get(key_year, {}).get(mileage_band, {})
+    if year_band:
+        weight += float(year_band.get(part_id, 0.0))
+        return weight
+
+    key_model = f"{make_key}|{model_key}"
+    model_band = PUBLIC_PRIORS.get("vehicle_model", {}).get(key_model, {}).get(mileage_band, {})
+    weight += float(model_band.get(part_id, 0.0))
+    return weight
+
+
 @app.post("/api/predict")
 def predict(payload: PredictRequest):
     mileage_band = _mileage_band(payload.mileage)
@@ -117,9 +147,13 @@ def predict(payload: PredictRequest):
         if engine_flags["hybrid"] and part_id in {"starter", "alternator"}:
             score *= 0.7
 
-        # Demo vehicle priors (small offsets for MVP UI)
-        score += float(make_weights.get(part_id, 0.0))
-        score += float(model_weights.get(part_id, 0.0))
+        public_weight = _public_prior_weight(part_id, mileage_band, payload.year, make_key, model_key)
+        if USE_PUBLIC_PRIORS:
+            score += public_weight
+        else:
+            # Demo vehicle priors (small offsets for MVP UI)
+            score += float(make_weights.get(part_id, 0.0))
+            score += float(model_weights.get(part_id, 0.0))
 
         matched_keywords: List[str] = []
         if symptom_text:
@@ -144,7 +178,9 @@ def predict(payload: PredictRequest):
             "150_plus": "150k+",
         }.get(mileage_band, mileage_band)
         signals.append(f"Mileage band: {band_label}")
-        if make_weights or model_weights:
+        if USE_PUBLIC_PRIORS and public_weight > 0:
+            signals.append("Public-data prior applied")
+        elif make_weights or model_weights:
             signals.append("Vehicle prior applied (demo)")
         part_signals[part_id] = signals
 

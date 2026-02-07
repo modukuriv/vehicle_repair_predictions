@@ -15,3 +15,7 @@ __pycache__/
 
 # Byte-compiled / cache
 *.egg-info/
+
+# ETL data
+/data/raw/
+/data/cache/
