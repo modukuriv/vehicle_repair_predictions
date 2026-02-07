@@ -132,6 +132,16 @@ button:hover {
   transform: translateY(-1px);
 }
 
+button.secondary {
+  background: transparent;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+}
+
+button.secondary:hover {
+  background: #f4e6db;
+}
+
 .status {
   font-size: 13px;
   color: var(--muted);

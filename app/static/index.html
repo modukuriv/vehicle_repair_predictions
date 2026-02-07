@@ -39,8 +39,9 @@
             <label>
               <span>Mileage</span>
               <select name="mileage" id="mileage" required>
+                <option value="" selected disabled>Select mileage</option>
                 <option value="25000">0 - 50k</option>
-                <option value="75000" selected>50k - 100k</option>
+                <option value="75000">50k - 100k</option>
                 <option value="125000">100k - 150k</option>
                 <option value="175000">150k+</option>
               </select>
@@ -53,6 +54,7 @@
           </div>
           <div class="actions">
             <button type="submit">Run Prediction</button>
+            <button type="button" id="reset-btn" class="secondary">Reset</button>
             <span id="status" class="status"></span>
           </div>
         </form>

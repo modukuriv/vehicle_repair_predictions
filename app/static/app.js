@@ -7,6 +7,7 @@ const modelSelect = document.getElementById("model");
 const engineSelect = document.getElementById("engine");
 const mileageSelect = document.getElementById("mileage");
 const symptomsSelect = document.getElementById("symptoms");
+const resetBtn = document.getElementById("reset-btn");
 
 let vehicleData = null;
 
@@ -74,8 +75,20 @@ function addOption(selectEl, label, value, selected = false) {
   selectEl.appendChild(option);
 }
 
+function addPlaceholder(selectEl, label, selected = false, disabled = true) {
+  const option = document.createElement("option");
+  option.value = "";
+  option.textContent = label;
+  option.disabled = disabled;
+  if (selected) {
+    option.selected = true;
+  }
+  selectEl.appendChild(option);
+}
+
 function populateYears(range, selectedYear) {
   clearSelect(yearSelect);
+  addPlaceholder(yearSelect, "Select year", !selectedYear, true);
   const [minYear, maxYear] = range;
   for (let year = maxYear; year >= minYear; year -= 1) {
     addOption(yearSelect, String(year), String(year), year === selectedYear);
@@ -92,6 +105,7 @@ function resolveYearSelection(range, currentYear) {
 
 function populateMakes(defaultMake) {
   clearSelect(makeSelect);
+  addPlaceholder(makeSelect, "Select make", !defaultMake, true);
   vehicleData.makes.forEach((make) => {
     addOption(makeSelect, make.make, make.make, make.make === defaultMake);
   });
@@ -99,6 +113,7 @@ function populateMakes(defaultMake) {
 
 function populateModels(models, defaultModel) {
   clearSelect(modelSelect);
+  addPlaceholder(modelSelect, "Select model", !defaultModel, true);
   models.forEach((model) => {
     addOption(modelSelect, model.model, model.model, model.model === defaultModel);
   });
@@ -106,6 +121,7 @@ function populateModels(models, defaultModel) {
 
 function populateEngines(engines, defaultEngine) {
   clearSelect(engineSelect);
+  addPlaceholder(engineSelect, "Select engine (optional)", !defaultEngine, false);
   engines.forEach((engine) => {
     addOption(engineSelect, engine, engine, engine === defaultEngine);
   });
@@ -148,6 +164,8 @@ async function loadDropdownData() {
 
   const yearRange = modelEntry.year_range || [1990, 2026];
   populateYears(yearRange, resolveYearSelection(yearRange, defaultYear));
+
+  mileageSelect.value = "75000";
 
   clearSelect(symptomsSelect);
   symptomsData.symptoms.forEach((symptom) => {
@@ -213,6 +231,9 @@ async function runPrediction(payload) {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (!form.reportValidity()) {
+    return;
+  }
   const payload = {
     year: Number(yearSelect.value),
     make: String(makeSelect.value),
@@ -230,6 +251,19 @@ makeSelect.addEventListener("change", () => {
 
 modelSelect.addEventListener("change", () => {
   refreshEnginesAndYears();
+});
+
+resetBtn.addEventListener("click", () => {
+  yearSelect.selectedIndex = 0;
+  makeSelect.selectedIndex = 0;
+  modelSelect.selectedIndex = 0;
+  engineSelect.selectedIndex = 0;
+  mileageSelect.selectedIndex = 0;
+  Array.from(symptomsSelect.options).forEach((option) => {
+    option.selected = false;
+  });
+  resultsList.innerHTML = "";
+  setStatus("Form cleared.");
 });
 
 loadDropdownData()
