@@ -1,43 +1,698 @@
 {
   "makes": [
     {
-      "make": "Honda",
+      "make": "Chevrolet",
       "models": [
-        {"model": "Civic", "engines": ["2.0L I4", "1.5L Turbo"], "year_range": [2006, 2024]},
-        {"model": "Accord", "engines": ["2.4L I4", "2.0L Turbo", "3.5L V6"], "year_range": [2008, 2024]},
-        {"model": "CR-V", "engines": ["2.4L I4", "1.5L Turbo"], "year_range": [2007, 2024]}
+        {
+          "engines": [
+            "2.0L 4cyl Regular Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.3L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline",
+            "2.8L 6cyl Regular Gasoline",
+            "3.1L 6cyl Regular Gasoline"
+          ],
+          "model": "Cavalier",
+          "year_range": [
+            1984,
+            2005
+          ]
+        },
+        {
+          "engines": [
+            "2.0L 4cyl Premium Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.4L 4cyl Premium Gasoline"
+          ],
+          "model": "Cobalt",
+          "year_range": [
+            2005,
+            2009
+          ]
+        },
+        {
+          "engines": [
+            "5.7L 8cyl Premium Gasoline",
+            "5.7L 8cyl Regular Gasoline",
+            "6.0L 8cyl Premium Gasoline",
+            "6.2L 8cyl Premium Gasoline",
+            "6.2L 8cyl Regular Gasoline",
+            "7.0L 8cyl Premium Gasoline"
+          ],
+          "model": "Corvette",
+          "year_range": [
+            1984,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "1.4L 4cyl Regular Gasoline",
+            "1.6L 4cyl Diesel",
+            "1.8L 4cyl Regular Gasoline",
+            "2.0L 4cyl Diesel"
+          ],
+          "model": "Cruze",
+          "year_range": [
+            2011,
+            2019
+          ]
+        },
+        {
+          "engines": [
+            "2.5L 4cyl Regular Gasoline",
+            "3.4L 6cyl Regular Gasoline",
+            "3.5L 6cyl FFV",
+            "3.5L 6cyl Regular Gasoline",
+            "3.6L 6cyl FFV",
+            "3.6L 6cyl Regular Gasoline",
+            "3.8L 6cyl Premium Gasoline",
+            "3.8L 6cyl Regular Gasoline",
+            "3.9L 6cyl FFV",
+            "3.9L 6cyl Regular Gasoline",
+            "5.3L 8cyl Premium Gasoline",
+            "5.3L 8cyl Regular Gasoline"
+          ],
+          "model": "Impala",
+          "year_range": [
+            2000,
+            2020
+          ]
+        },
+        {
+          "engines": [
+            "1.5L 4cyl Regular Gasoline",
+            "2.0L 4cyl Premium Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.4L 4cyl FFV",
+            "2.4L 4cyl Regular Gasoline",
+            "2.5L 4cyl Regular Gasoline",
+            "3.1L 6cyl Regular Gasoline",
+            "3.5L 6cyl FFV",
+            "3.5L 6cyl Regular Gasoline",
+            "3.6L 6cyl Regular Gasoline",
+            "3.9L 6cyl Regular Gasoline"
+          ],
+          "model": "Malibu",
+          "year_range": [
+            1997,
+            2025
+          ]
+        }
       ]
     },
     {
-      "make": "Toyota",
+      "make": "Chrysler",
       "models": [
-        {"model": "Camry", "engines": ["2.5L I4", "3.5L V6", "2.5L Hybrid"], "year_range": [2007, 2024]},
-        {"model": "Corolla", "engines": ["1.8L I4", "2.0L I4", "1.8L Hybrid"], "year_range": [2009, 2024]},
-        {"model": "RAV4", "engines": ["2.5L I4", "2.5L Hybrid"], "year_range": [2008, 2024]}
+        {
+          "engines": [
+            "2.4L 4cyl FFV",
+            "2.4L 4cyl Regular Gasoline",
+            "3.6L 6cyl FFV",
+            "3.6L 6cyl Regular Gasoline"
+          ],
+          "model": "200",
+          "year_range": [
+            2011,
+            2017
+          ]
+        },
+        {
+          "engines": [
+            "2.7L 6cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline",
+            "3.6L 6cyl FFV",
+            "3.6L 6cyl Regular Gasoline",
+            "5.7L 8cyl Midgrade Gasoline",
+            "5.7L 8cyl Regular Gasoline",
+            "6.4L 8cyl Premium Gasoline"
+          ],
+          "model": "300",
+          "year_range": [
+            2006,
+            2023
+          ]
+        },
+        {
+          "engines": [
+            "3.6L 6cyl Regular Gasoline"
+          ],
+          "model": "Pacifica",
+          "year_range": [
+            2017,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "3.0L 6cyl Regular Gasoline",
+            "3.3L 6cyl FFV",
+            "3.6L 6cyl FFV",
+            "3.6L 6cyl Regular Gasoline",
+            "3.8L 6cyl Regular Gasoline",
+            "4.0L 6cyl Regular Gasoline"
+          ],
+          "model": "Town and Country",
+          "year_range": [
+            1988,
+            2016
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Dodge",
+      "models": [
+        {
+          "engines": [
+            "1.6L 4cyl Regular Gasoline",
+            "2.2L 4cyl Premium Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.7L 6cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline",
+            "3.6L 6cyl FFV",
+            "3.6L 6cyl Regular Gasoline",
+            "5.7L 8cyl Midgrade Gasoline",
+            "5.7L 8cyl Regular Gasoline",
+            "6.10L 8cyl Premium Gasoline",
+            "6.1L 8cyl Premium Gasoline",
+            "6.1L 8cyl Regular Gasoline",
+            "6.4L 8cyl Premium Gasoline"
+          ],
+          "model": "Charger",
+          "year_range": [
+            1984,
+            2023
+          ]
+        },
+        {
+          "engines": [
+            "3.3L 6cyl FFV",
+            "3.6L 6cyl FFV",
+            "3.6L 6cyl Regular Gasoline",
+            "3.8L 6cyl Regular Gasoline",
+            "4.0L 6cyl Regular Gasoline"
+          ],
+          "model": "Grand Caravan",
+          "year_range": [
+            2010,
+            2020
+          ]
+        },
+        {
+          "engines": [
+            "2.7L 6cyl Regular Gasoline",
+            "3.2L 6cyl Regular Gasoline",
+            "3.3L 6cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Intrepid",
+          "year_range": [
+            1993,
+            2004
+          ]
+        },
+        {
+          "engines": [
+            "2.4L 4cyl Regular Gasoline",
+            "3.6L 6cyl FFV"
+          ],
+          "model": "Journey",
+          "year_range": [
+            2016,
+            2020
+          ]
+        },
+        {
+          "engines": [
+            "2.0L 4cyl Regular Gasoline"
+          ],
+          "model": "Neon",
+          "year_range": [
+            1995,
+            2002
+          ]
+        }
       ]
     },
     {
       "make": "Ford",
       "models": [
-        {"model": "F-150", "engines": ["3.3L V6", "2.7L EcoBoost", "3.5L EcoBoost", "5.0L V8"], "year_range": [2011, 2024]},
-        {"model": "Escape", "engines": ["1.5L EcoBoost", "2.0L EcoBoost", "2.5L Hybrid"], "year_range": [2013, 2024]},
-        {"model": "Focus", "engines": ["2.0L I4", "1.0L EcoBoost"], "year_range": [2012, 2018]}
+        {
+          "engines": [
+            "1.6L 4cyl Regular Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "1.9L 4cyl Regular Gasoline",
+            "2.0L 4cyl Diesel",
+            "2.0L 4cyl Regular Gasoline"
+          ],
+          "model": "Escort",
+          "year_range": [
+            1984,
+            2002
+          ]
+        },
+        {
+          "engines": [
+            "2.0L 4cyl Premium Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.3L 4cyl Regular Gasoline"
+          ],
+          "model": "Focus",
+          "year_range": [
+            2000,
+            2008
+          ]
+        },
+        {
+          "engines": [
+            "2.3L 4cyl Regular Gasoline",
+            "3.0L 6cyl Regular Gasoline"
+          ],
+          "model": "Fusion",
+          "year_range": [
+            2006,
+            2008
+          ]
+        },
+        {
+          "engines": [
+            "2.3L 4cyl Regular Gasoline",
+            "3.7L 6cyl Regular Gasoline",
+            "3.8L 6cyl Regular Gasoline",
+            "3.9L 6cyl Regular Gasoline",
+            "4.0L 6cyl Regular Gasoline",
+            "4.6L 8cyl Premium Gasoline",
+            "4.6L 8cyl Regular Gasoline",
+            "5.0L 8cyl Regular Gasoline",
+            "5.4L 8cyl Premium Gasoline",
+            "5.8L 8cyl Premium Gasoline",
+            "5.8L 8cyl Regular Gasoline"
+          ],
+          "model": "Mustang",
+          "year_range": [
+            1984,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "2.5L 4cyl Regular Gasoline",
+            "3.0L 6cyl FFV",
+            "3.0L 6cyl Premium Gasoline",
+            "3.0L 6cyl Regular Gasoline",
+            "3.8L 6cyl Regular Gasoline"
+          ],
+          "model": "Taurus",
+          "year_range": [
+            1986,
+            2007
+          ]
+        }
       ]
     },
     {
-      "make": "Chevrolet",
+      "make": "Honda",
       "models": [
-        {"model": "Silverado", "engines": ["2.7L Turbo", "5.3L V8", "6.2L V8"], "year_range": [2014, 2024]},
-        {"model": "Malibu", "engines": ["1.5L Turbo", "2.0L Turbo"], "year_range": [2016, 2024]},
-        {"model": "Equinox", "engines": ["1.5L Turbo", "2.0L Turbo"], "year_range": [2018, 2024]}
+        {
+          "engines": [
+            "1.5L 4cyl Regular Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.3L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline",
+            "2.7L 6cyl Regular Gasoline",
+            "3.0L 6cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Accord",
+          "year_range": [
+            1984,
+            2025
+          ]
+        },
+        {
+          "engines": [
+            "1.3L 4cyl Regular Gasoline",
+            "1.5L 4cyl Regular Gasoline",
+            "1.6L 4cyl Natural Gas",
+            "1.6L 4cyl Premium Gasoline",
+            "1.6L 4cyl Regular Gasoline",
+            "1.7L 4cyl Regular Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "2.0L 4cyl Premium Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.4L 4cyl Premium Gasoline"
+          ],
+          "model": "Civic",
+          "year_range": [
+            1984,
+            2015
+          ]
+        },
+        {
+          "engines": [
+            "2.2L 4cyl Regular Gasoline",
+            "2.3L 4cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Odyssey",
+          "year_range": [
+            1995,
+            2026
+          ]
+        }
       ]
     },
     {
-      "make": "BMW",
+      "make": "Hyundai",
       "models": [
-        {"model": "3 Series", "engines": ["2.0L Turbo", "3.0L Turbo"], "year_range": [2012, 2024]},
-        {"model": "5 Series", "engines": ["2.0L Turbo", "3.0L Turbo", "4.4L Turbo V8"], "year_range": [2011, 2024]},
-        {"model": "X5", "engines": ["3.0L Turbo", "4.4L Turbo V8", "3.0L Diesel"], "year_range": [2013, 2024]}
+        {
+          "engines": [
+            "1.4L 4cyl Regular Gasoline",
+            "1.6L 4cyl Regular Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline"
+          ],
+          "model": "Elantra",
+          "year_range": [
+            1993,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "1.6L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline",
+            "2.5L 4cyl Regular Gasoline",
+            "2.5L 6cyl Regular Gasoline",
+            "2.7L 6cyl Regular Gasoline",
+            "3.0L 6cyl Regular Gasoline",
+            "3.3L 6cyl Regular Gasoline"
+          ],
+          "model": "Sonata",
+          "year_range": [
+            1989,
+            2023
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Kia",
+      "models": [
+        {
+          "engines": [
+            "1.6L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline",
+            "2.5L 6cyl Regular Gasoline",
+            "2.7L 6cyl Regular Gasoline"
+          ],
+          "model": "Optima",
+          "year_range": [
+            2001,
+            2020
+          ]
+        },
+        {
+          "engines": [
+            "1.6L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline"
+          ],
+          "model": "Soul",
+          "year_range": [
+            2010,
+            2025
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Mercury",
+      "models": [
+        {
+          "engines": [
+            "2.5L 4cyl Regular Gasoline",
+            "3.0L 6cyl FFV",
+            "3.0L 6cyl Regular Gasoline",
+            "3.8L 6cyl Regular Gasoline"
+          ],
+          "model": "Sable",
+          "year_range": [
+            1986,
+            2005
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Nissan",
+      "models": [
+        {
+          "engines": [
+            "2.4L 4cyl Regular Gasoline",
+            "2.5L 4cyl Regular Gasoline",
+            "3.5L 6cyl Premium Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Altima",
+          "year_range": [
+            1998,
+            2025
+          ]
+        },
+        {
+          "engines": [
+            "2.4L 6cyl Regular Gasoline",
+            "3.0L 6cyl Premium Gasoline",
+            "3.0L 6cyl Regular Gasoline",
+            "3.5L 6cyl Premium Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Maxima",
+          "year_range": [
+            1984,
+            2023
+          ]
+        },
+        {
+          "engines": [
+            "1.6L 4cyl Premium Gasoline",
+            "1.6L 4cyl Regular Gasoline",
+            "1.7L 4cyl Diesel",
+            "1.8L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.5L 4cyl Premium Gasoline",
+            "2.5L 4cyl Regular Gasoline"
+          ],
+          "model": "Sentra",
+          "year_range": [
+            1984,
+            2025
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Pontiac",
+      "models": [
+        {
+          "engines": [
+            "2.4L 4cyl FFV",
+            "2.4L 4cyl Regular Gasoline",
+            "3.5L 6cyl FFV",
+            "3.5L 6cyl Regular Gasoline",
+            "3.6L 6cyl Regular Gasoline",
+            "3.9L 6cyl Regular Gasoline"
+          ],
+          "model": "G6",
+          "year_range": [
+            2005,
+            2010
+          ]
+        },
+        {
+          "engines": [
+            "2.0L 4cyl Premium Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.3L 4cyl Premium Gasoline",
+            "2.3L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline",
+            "2.5L 4cyl Regular Gasoline",
+            "3.0L 6cyl Regular Gasoline",
+            "3.1L 6cyl Regular Gasoline",
+            "3.3L 6cyl Regular Gasoline",
+            "3.4L 6cyl Regular Gasoline"
+          ],
+          "model": "Grand Am",
+          "year_range": [
+            1985,
+            2005
+          ]
+        },
+        {
+          "engines": [
+            "2.3L 4cyl Regular Gasoline",
+            "2.8L 6cyl Regular Gasoline",
+            "3.1L 6cyl Regular Gasoline",
+            "3.4L 6cyl Regular Gasoline",
+            "3.8L 6cyl Premium Gasoline",
+            "3.8L 6cyl Regular Gasoline",
+            "4.3L 6cyl Regular Gasoline",
+            "5.0L 8cyl Regular Gasoline",
+            "5.3L 8cyl Premium Gasoline",
+            "5.3L 8cyl Regular Gasoline",
+            "5.7L 8cyl Diesel"
+          ],
+          "model": "Grand Prix",
+          "year_range": [
+            1984,
+            2008
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Saturn",
+      "models": [
+        {
+          "engines": [
+            "2.0L 4cyl Premium Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.4L 4cyl Premium Gasoline"
+          ],
+          "model": "Ion",
+          "year_range": [
+            2003,
+            2007
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Toyota",
+      "models": [
+        {
+          "engines": [
+            "1.8L 4cyl Diesel",
+            "2.0L 4cyl Diesel",
+            "2.0L 4cyl Regular Gasoline",
+            "2.2L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline",
+            "2.5L 4cyl Regular Gasoline",
+            "2.5L 6cyl Regular Gasoline",
+            "3.0L 6cyl Regular Gasoline",
+            "3.3L 6cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Camry",
+          "year_range": [
+            1984,
+            2024
+          ]
+        },
+        {
+          "engines": [
+            "1.6L 4cyl Premium Gasoline",
+            "1.6L 4cyl Regular Gasoline",
+            "1.8L 4cyl Diesel",
+            "1.8L 4cyl Premium Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.4L 4cyl Regular Gasoline"
+          ],
+          "model": "Corolla",
+          "year_range": [
+            1984,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "2.4L 4cyl Regular Gasoline",
+            "2.7L 4cyl Regular Gasoline",
+            "3.5L 6cyl Regular Gasoline"
+          ],
+          "model": "Highlander",
+          "year_range": [
+            2017,
+            2025
+          ]
+        },
+        {
+          "engines": [
+            "1.5L 4cyl Hybrid",
+            "1.8L 4cyl Hybrid",
+            "2.0L 4cyl Hybrid"
+          ],
+          "model": "Prius",
+          "year_range": [
+            2001,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "2.5L 4cyl Regular Gasoline"
+          ],
+          "model": "RAV4",
+          "year_range": [
+            2014,
+            2025
+          ]
+        }
+      ]
+    },
+    {
+      "make": "Volkswagen",
+      "models": [
+        {
+          "engines": [
+            "1.4L 4cyl Regular Gasoline",
+            "1.5L 4cyl Regular Gasoline",
+            "1.6L 4cyl Diesel",
+            "1.7L 4cyl Regular Gasoline",
+            "1.8L 4cyl Premium Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "1.9L 4cyl Diesel",
+            "2.0L 4cyl Diesel",
+            "2.0L 4cyl Premium Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.5L 5cyl Regular Gasoline",
+            "2.8L 6cyl Premium Gasoline",
+            "2.8L 6cyl Regular Gasoline"
+          ],
+          "model": "Jetta",
+          "year_range": [
+            1984,
+            2026
+          ]
+        },
+        {
+          "engines": [
+            "1.8L 4cyl Premium Gasoline",
+            "1.8L 4cyl Regular Gasoline",
+            "1.9L 4cyl Diesel",
+            "2.0L 4cyl Diesel",
+            "2.0L 4cyl Premium Gasoline",
+            "2.0L 4cyl Regular Gasoline",
+            "2.5L 5cyl Regular Gasoline",
+            "2.8L 6cyl Premium Gasoline",
+            "2.8L 6cyl Regular Gasoline",
+            "3.6L 6cyl Premium Gasoline",
+            "3.6L 6cyl Regular Gasoline"
+          ],
+          "model": "Passat",
+          "year_range": [
+            1990,
+            2022
+          ]
+        }
       ]
     }
   ]

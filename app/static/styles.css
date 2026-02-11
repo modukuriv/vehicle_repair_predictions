@@ -132,6 +132,16 @@ button:hover {
   transform: translateY(-1px);
 }
 
+button.secondary {
+  background: transparent;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+}
+
+button.secondary:hover {
+  background: #f4e6db;
+}
+
 .status {
   font-size: 13px;
   color: var(--muted);
@@ -155,6 +165,13 @@ button:hover {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.explanation {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 .results-list {

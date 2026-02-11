@@ -1,14 +1,17 @@
 const form = document.getElementById("predict-form");
 const resultsList = document.getElementById("results-list");
 const statusEl = document.getElementById("status");
+const explanationEl = document.getElementById("explanation");
 const yearSelect = document.getElementById("year");
 const makeSelect = document.getElementById("make");
 const modelSelect = document.getElementById("model");
 const engineSelect = document.getElementById("engine");
 const mileageSelect = document.getElementById("mileage");
 const symptomsSelect = document.getElementById("symptoms");
+const resetBtn = document.getElementById("reset-btn");
 
 let vehicleData = null;
+let availableYears = [];
 
 function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
@@ -74,31 +77,37 @@ function addOption(selectEl, label, value, selected = false) {
   selectEl.appendChild(option);
 }
 
-function populateYears(range, selectedYear) {
+function addPlaceholder(selectEl, label, selected = false, disabled = true) {
+  const option = document.createElement("option");
+  option.value = "";
+  option.textContent = label;
+  option.disabled = disabled;
+  if (selected) {
+    option.selected = true;
+  }
+  selectEl.appendChild(option);
+}
+
+function populateYears(years, selectedYear) {
   clearSelect(yearSelect);
-  const [minYear, maxYear] = range;
-  for (let year = maxYear; year >= minYear; year -= 1) {
+  addPlaceholder(yearSelect, "Select year", !selectedYear, true);
+  years.forEach((year) => {
     addOption(yearSelect, String(year), String(year), year === selectedYear);
-  }
+  });
 }
 
-function resolveYearSelection(range, currentYear) {
-  const [minYear, maxYear] = range;
-  if (currentYear >= minYear && currentYear <= maxYear) {
-    return currentYear;
-  }
-  return maxYear;
-}
-
-function populateMakes(defaultMake) {
+function populateMakes(makeEntries, defaultMake) {
   clearSelect(makeSelect);
-  vehicleData.makes.forEach((make) => {
+  addPlaceholder(makeSelect, "Select make", !defaultMake, true);
+  const entries = makeEntries || [];
+  entries.forEach((make) => {
     addOption(makeSelect, make.make, make.make, make.make === defaultMake);
   });
 }
 
 function populateModels(models, defaultModel) {
   clearSelect(modelSelect);
+  addPlaceholder(modelSelect, "Select model", !defaultModel, true);
   models.forEach((model) => {
     addOption(modelSelect, model.model, model.model, model.model === defaultModel);
   });
@@ -106,9 +115,42 @@ function populateModels(models, defaultModel) {
 
 function populateEngines(engines, defaultEngine) {
   clearSelect(engineSelect);
+  addPlaceholder(engineSelect, "Select engine (optional)", !defaultEngine, false);
   engines.forEach((engine) => {
     addOption(engineSelect, engine, engine, engine === defaultEngine);
   });
+}
+
+function clearDependentSelects() {
+  clearSelect(modelSelect);
+  addPlaceholder(modelSelect, "Select model", true, true);
+  clearSelect(engineSelect);
+  addPlaceholder(engineSelect, "Select engine (optional)", true, false);
+}
+
+function clearMakeModelEngine() {
+  clearSelect(makeSelect);
+  addPlaceholder(makeSelect, "Select make", true, true);
+  clearDependentSelects();
+}
+
+function yearInRange(year, range) {
+  if (!range || range.length < 2) return false;
+  return year >= range[0] && year <= range[1];
+}
+
+function computeAvailableYears() {
+  const years = new Set();
+  vehicleData.makes.forEach((makeEntry) => {
+    makeEntry.models.forEach((modelEntry) => {
+      const range = modelEntry.year_range || [];
+      if (range.length < 2) return;
+      for (let year = range[0]; year <= range[1]; year += 1) {
+        years.add(year);
+      }
+    });
+  });
+  return Array.from(years).sort((a, b) => b - a);
 }
 
 function getSelectedModel() {
@@ -131,62 +173,61 @@ async function loadDropdownData() {
   vehicleData = await vehiclesResponse.json();
   const symptomsData = await symptomsResponse.json();
 
-  const defaultMake = "Honda";
-  const defaultModel = "Civic";
-  const defaultEngine = "1.5L Turbo";
-  const defaultYear = 2016;
-
-  populateMakes(defaultMake);
-
-  const makeEntry = vehicleData.makes.find((entry) => entry.make === defaultMake) || vehicleData.makes[0];
-  const models = makeEntry.models;
-  populateModels(models, defaultModel);
-
-  const modelEntry = models.find((entry) => entry.model === defaultModel) || models[0];
-  const engines = modelEntry.engines || [];
-  populateEngines(engines, defaultEngine);
-
-  const yearRange = modelEntry.year_range || [1990, 2026];
-  populateYears(yearRange, resolveYearSelection(yearRange, defaultYear));
+  availableYears = computeAvailableYears();
+  populateYears(availableYears, null);
+  clearMakeModelEngine();
+  mileageSelect.selectedIndex = 0;
 
   clearSelect(symptomsSelect);
   symptomsData.symptoms.forEach((symptom) => {
     addOption(symptomsSelect, symptom, symptom, false);
   });
 
-  // Preselect a few symptoms for the demo run.
-  ["rough idle", "check engine", "hesitation"].forEach((keyword) => {
-    const option = Array.from(symptomsSelect.options).find((opt) => opt.value === keyword);
-    if (option) option.selected = true;
-  });
+  setStatus("Select vehicle details to run a prediction.");
 }
 
-function refreshModels() {
-  const makeEntry = vehicleData.makes.find((entry) => entry.make === makeSelect.value);
-  const models = makeEntry ? makeEntry.models : [];
-  populateModels(models, models[0]?.model);
-
-  const modelEntry = models[0];
-  if (modelEntry) {
-    populateEngines(modelEntry.engines || [], modelEntry.engines?.[0]);
-    const range = modelEntry.year_range || [1990, 2026];
-    const selectedYear = resolveYearSelection(range, Number(yearSelect.value));
-    populateYears(range, selectedYear);
+function refreshMakesForYear() {
+  if (!yearSelect.value) {
+    clearMakeModelEngine();
+    return;
   }
+  const year = Number(yearSelect.value);
+  const makesForYear = vehicleData.makes.filter((makeEntry) =>
+    makeEntry.models.some((modelEntry) => yearInRange(year, modelEntry.year_range))
+  );
+  populateMakes(makesForYear, null);
+  clearDependentSelects();
 }
 
-function refreshEnginesAndYears() {
+function refreshModelsForMakeYear() {
+  const year = Number(yearSelect.value);
+  if (!year || !makeSelect.value) {
+    clearDependentSelects();
+    return;
+  }
+  const makeEntry = vehicleData.makes.find((entry) => entry.make === makeSelect.value);
+  const models = makeEntry
+    ? makeEntry.models.filter((modelEntry) => yearInRange(year, modelEntry.year_range))
+    : [];
+  populateModels(models, null);
+  clearSelect(engineSelect);
+  addPlaceholder(engineSelect, "Select engine (optional)", true, false);
+}
+
+function refreshEnginesForModel() {
   const modelEntry = getSelectedModel();
-  if (!modelEntry) return;
-  populateEngines(modelEntry.engines || [], modelEntry.engines?.[0]);
-  const range = modelEntry.year_range || [1990, 2026];
-  const selectedYear = resolveYearSelection(range, Number(yearSelect.value));
-  populateYears(range, selectedYear);
+  if (!modelEntry) {
+    clearSelect(engineSelect);
+    addPlaceholder(engineSelect, "Select engine (optional)", true, false);
+    return;
+  }
+  populateEngines(modelEntry.engines || [], null);
 }
 
 async function runPrediction(payload) {
   setStatus("Running prediction...");
   resultsList.innerHTML = "";
+  explanationEl.textContent = "";
 
   try {
     const response = await fetch("/api/predict", {
@@ -200,6 +241,9 @@ async function runPrediction(payload) {
     }
 
     const data = await response.json();
+    if (data.explanation) {
+      explanationEl.textContent = data.explanation;
+    }
     data.results.forEach((result) => {
       resultsList.appendChild(createResultCard(result));
     });
@@ -213,6 +257,9 @@ async function runPrediction(payload) {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (!form.reportValidity()) {
+    return;
+  }
   const payload = {
     year: Number(yearSelect.value),
     make: String(makeSelect.value),
@@ -224,25 +271,32 @@ form.addEventListener("submit", (event) => {
   runPrediction(payload);
 });
 
+yearSelect.addEventListener("change", () => {
+  refreshMakesForYear();
+});
+
 makeSelect.addEventListener("change", () => {
-  refreshModels();
+  refreshModelsForMakeYear();
 });
 
 modelSelect.addEventListener("change", () => {
-  refreshEnginesAndYears();
+  refreshEnginesForModel();
+});
+
+resetBtn.addEventListener("click", () => {
+  populateYears(availableYears, null);
+  clearMakeModelEngine();
+  mileageSelect.selectedIndex = 0;
+  Array.from(symptomsSelect.options).forEach((option) => {
+    option.selected = false;
+  });
+  resultsList.innerHTML = "";
+  explanationEl.textContent = "";
+  setStatus("Form cleared.");
 });
 
 loadDropdownData()
-  .then(() => {
-    runPrediction({
-      year: Number(yearSelect.value),
-      make: String(makeSelect.value),
-      model: String(modelSelect.value),
-      engine: String(engineSelect.value || ""),
-      mileage: Number(mileageSelect.value),
-      symptoms: getSelectedSymptoms().join(", "),
-    });
-  })
+  .then(() => {})
   .catch((error) => {
     console.error(error);
     setStatus("Failed to load dropdown data.");
